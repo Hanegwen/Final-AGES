@@ -24,8 +24,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        MovementController();
-        //MovementKeyboard();
+        //MovementController();
+        MovementKeyboard();
     }
 
     void MovementController()
