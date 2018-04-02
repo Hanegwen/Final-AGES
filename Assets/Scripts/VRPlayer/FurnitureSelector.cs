@@ -26,7 +26,7 @@ public class FurnitureSelector : MonoBehaviour
             Debug.Log("Hitting Something");
             if (hit.transform.gameObject.layer == LayerMask.NameToLayer("furnitureLayer"))
             {
-                if(Input.GetButtonDown("")) //Input for VR Player
+                if(Input.GetButtonDown("SelectFurnitureController")) //Input for VR Player and Exists
                 {
                     if(hit.transform.gameObject.GetComponent<FurnitureScript>().IsPlayer)
                     {

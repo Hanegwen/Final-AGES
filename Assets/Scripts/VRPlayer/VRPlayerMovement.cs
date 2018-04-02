@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class VRPlayerMovement : MonoBehaviour
 {
     [SerializeField]
     float speed = 1;
@@ -24,19 +24,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-       
-        MovementKeyboard();
+        MovementConroller();
     }
 
-    
-    void MovementKeyboard()
+    void MovementConroller()
     {
-        horizontalMovement = Input.GetAxis("Horizontal");
-        verticalMovement = Input.GetAxis("Vertical");
+        horizontalMovement = Input.GetAxis("HorizontalController");
+        verticalMovement = Input.GetAxis("VerticalController");
 
         Vector3 move = new Vector3(horizontalMovement, 0, verticalMovement);
-        
-        
+
+
 
         rb.AddRelativeForce(move * speed);
 
@@ -45,10 +43,9 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = Vector3.zero;
         }
 
-        horizontalRoation += -1 * rotationSpeed * Input.GetAxis("Mouse Y");
-        verticalRotation -= -1 * rotationSpeed * Input.GetAxis("Mouse X");
+        horizontalRoation += -1 * rotationSpeed * Input.GetAxis("HorizontalControllerRight");
+        verticalRotation -= -1 * rotationSpeed * Input.GetAxis("VerticalControllerRight");
 
         transform.eulerAngles = new Vector3(horizontalRoation, verticalRotation, 0.0f);
     }
-
 }

@@ -17,11 +17,12 @@ public class PlayerPlacer : MonoBehaviour
     int spawnedObjectAmount = 0;
 
     [SerializeField]
-    LayerMask furnitureLayer;
+    LayerMask FurnitureLayer;
 	// Use this for initialization
 	void Start ()
     {
-        activeSpawnableObject = spawnableObjects[0];
+        activeSpawnableObject = Instantiate(spawnableObjects[0], spawnLocation);
+        
 	}
 	
 	// Update is called once per frame
@@ -29,41 +30,85 @@ public class PlayerPlacer : MonoBehaviour
     {
         spawnableObjectAmount = spawnableObjects.Count;
 
-        if(Input.GetButtonDown("SelectFurnitureKeyboard"))
+
+        if(Input.GetButtonDown("SelectFurnitureKeyboard")) //Exists
         {
+            if (activeSpawnableObject != null)
+            {
+                PlaceFurniture();
+            }
+        }
+
+        if(spawnableObjects.Count == 0)
+        {
+            //Works checked with Log
+            //Debug.Log(spawnableObjects.Count);
             ChooseFurniture();
         }
 
-        if(Input.GetButtonDown("NextFurnitureKeyboard"))
-        {
-            NextFurniture();
-        }
+        //if(Input.GetButtonDown("NextFurnitureKeyboard")) //Exists
+        //{
+        //    NextFurniture();
+        //}
 	}
 
-    void NextFurniture()
+    void PlaceFurniture() //Done
     {
-        activeSpawnableObjectsNum++;
-        if(activeSpawnableObjectsNum + 1 > spawnableObjectAmount)
+        if (spawnableObjects.Count != 0)
         {
-            activeSpawnableObjectsNum = 0;
+            activeSpawnableObject.GetComponent<Rigidbody>().useGravity = true;
+            activeSpawnableObject.transform.parent = null;
+
+            spawnedObject.Add(activeSpawnableObject);
+
+            spawnableObjects.Remove(spawnableObjects[activeSpawnableObjectsNum]);
         }
 
-
-        //Cycles through the furniture options
+        
+        if (spawnableObjects.Count != 0)
+        {
+            activeSpawnableObject = Instantiate(spawnableObjects[0], spawnLocation);
+            activeSpawnableObjectsNum = 0;
+        }
+        else
+        {
+            Debug.Log("Out of Furniture");
+        }
     }
+
+    //void NextFurniture()
+    //{
+    //    Destroy(activeSpawnableObject);
+    //    activeSpawnableObjectsNum++;
+    //    if(activeSpawnableObjectsNum + 1 > spawnableObjectAmount)
+    //    {
+    //        activeSpawnableObjectsNum = 0;
+    //    }
+    //    activeSpawnableObject = Instantiate(spawnableObjects[activeSpawnableObjectsNum], spawnLocation);
+
+    //    //Cycles through the furniture options
+    //}
 
     void ChooseFurniture()
     {
         Vector3 fwd = transform.TransformDirection(Vector3.forward);
         RaycastHit hit;
-        if (Physics.Raycast(fwd, -Vector3.up, out hit))
+        if (Physics.Raycast(transform.position, fwd, out hit, 5))
         {
             Debug.Log("Hitting Something");
-            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("furnitureLayer"))
+            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("FurnitureLayer"))
             {
-
+                Debug.Log("Click The Button");
+                if (Input.GetButtonDown("SelectFurnitureKeyboard")) //Exists
+                {
+                    Debug.Log("I Hit Something with the correct layer");
+                    this.gameObject.SetActive(false);
+                    hit.transform.GetComponentInChildren<Camera>().enabled = true;
+                    hit.transform.gameObject.GetComponent<FurnitureScript>().IsPlayer = true;
+                }
             }
         }
+
         //Lets the player decide which furniture they are
     }
 }
