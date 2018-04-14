@@ -5,6 +5,9 @@ using UnityEngine;
 public class PlayerPlacer : MonoBehaviour
 {
     [SerializeField]
+    GameObject activeGameObject;
+
+    [SerializeField]
     Transform spawnLocation;
     [SerializeField]
     List<GameObject> spawnableObjects;
@@ -18,6 +21,9 @@ public class PlayerPlacer : MonoBehaviour
 
     [SerializeField]
     LayerMask FurnitureLayer;
+
+    [SerializeField]
+    int jumpsLeft;
 	// Use this for initialization
 	void Start ()
     {
@@ -46,11 +52,47 @@ public class PlayerPlacer : MonoBehaviour
             ChooseFurniture();
         }
 
+        if(Input.GetButtonDown("JumpKeyboard") && jumpsLeft > 0 && spawnableObjects.Count == 0)
+        {
+            Jump();
+        }
+
+
         //if(Input.GetButtonDown("NextFurnitureKeyboard")) //Exists
         //{
         //    NextFurniture();
         //}
 	}
+
+    void Jump()
+    {
+        Debug.Log("I Jumped");
+        jumpsLeft--;
+
+        Debug.Log("Deactivate Me");
+        this.gameObject.SetActive(false);
+        activeGameObject.transform.GetComponentInChildren<Camera>().enabled = false;
+        activeGameObject.transform.gameObject.GetComponent<FurnitureScript>().IsPlayer = false;
+
+
+        if(spawnedObject[0] != activeGameObject)
+        {
+            Debug.Log("In Any");
+            spawnedObject[0].transform.GetComponentInChildren<Camera>().enabled = true;
+            spawnedObject[0].transform.gameObject.GetComponent<FurnitureScript>().IsPlayer = true;
+            activeGameObject = spawnedObject[0];
+        }
+        else
+        {
+            Debug.Log("In Not Me");
+            spawnedObject[2].transform.GetComponentInChildren<Camera>().enabled = true;
+            spawnedObject[2].transform.gameObject.GetComponent<FurnitureScript>().IsPlayer = true;
+            activeGameObject = spawnedObject[2];
+        }
+
+        Debug.Log("Should be in New furniture");
+
+    }
 
     void PlaceFurniture() //Done
     {
@@ -102,9 +144,11 @@ public class PlayerPlacer : MonoBehaviour
                 if (Input.GetButtonDown("SelectFurnitureKeyboard")) //Exists
                 {
                     Debug.Log("I Hit Something with the correct layer");
-                    this.gameObject.SetActive(false);
+                    this.gameObject.GetComponent<PlayerMovement>().enabled = false;
                     hit.transform.GetComponentInChildren<Camera>().enabled = true;
                     hit.transform.gameObject.GetComponent<FurnitureScript>().IsPlayer = true;
+
+                    activeGameObject = hit.transform.gameObject;
                 }
             }
         }

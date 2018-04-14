@@ -21,7 +21,7 @@ public class FurnitureSelector : MonoBehaviour
     {
         Vector3 fwd = transform.TransformDirection(Vector3.forward);
         RaycastHit hit;
-        if (Physics.Raycast(fwd, -Vector3.up, out hit))
+        if (Physics.Raycast(transform.position, fwd, out hit, 5))
         {
             Debug.Log("Hitting Something");
             if (hit.transform.gameObject.layer == LayerMask.NameToLayer("furnitureLayer"))
@@ -30,11 +30,13 @@ public class FurnitureSelector : MonoBehaviour
                 {
                     if(hit.transform.gameObject.GetComponent<FurnitureScript>().IsPlayer)
                     {
+                        Debug.Log("Game is Over");
                         //Found Player
                     }
 
                     else
                     {
+                        //timer--;
                         //Didn't Find Player
                     }
                 }
