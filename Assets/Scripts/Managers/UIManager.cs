@@ -16,7 +16,11 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     Text Player2Points;
 
-    
+    [SerializeField]
+    Text VRPowersLeft;
+
+    [SerializeField]
+    Text NonVRPowersLeft;
 
     RoundManager rm;
     FurnitureDeletor fd; //For VR Power
@@ -26,11 +30,10 @@ public class UIManager : MonoBehaviour
 	void Awake ()
     {
         rm = FindObjectOfType<RoundManager>();
-<<<<<<< HEAD
-=======
+
         fd = FindObjectOfType<FurnitureDeletor>();
         pp = FindObjectOfType<PlayerPlacer>();
->>>>>>> dab61f6f1617efa62ea4b3a6d1b8b1578052153d
+
 		//working on UI Manager
 	}
 	
@@ -58,7 +61,11 @@ public class UIManager : MonoBehaviour
             VRPowersLeft.text = "VR Deletes Left: 1";
         }
 
-        if(pp.JumpsLeft > 0)
+        if (pp.JumpsLeft == 2)
+        {
+            NonVRPowersLeft.text = "Non VR Jumps Left: 2";
+        }
+        else if (pp.JumpsLeft == 1)
         {
             NonVRPowersLeft.text = "Non VR Jumps Left: 1";
         }

@@ -91,7 +91,8 @@ public class PlayerPlacer : MonoBehaviour
         spawnedObject[0].transform.gameObject.GetComponent<FurnitureScript>().IsPlayer = true;
         activeGameObject = spawnedObject[0];
 
-        this.gameObject.SetActive(false);
+        activeGameObject.transform.gameObject.GetComponent<FurnitureScript>().IsPlayer = false;
+
         this.transform.GetComponentInChildren<Camera>().enabled = false;
 
     }
@@ -102,7 +103,7 @@ public class PlayerPlacer : MonoBehaviour
         jumpsLeft--;
 
         Debug.Log("Deactivate Me");
-        this.gameObject.SetActive(false);
+        //this.gameObject.SetActive(false);
         activeGameObject.transform.GetComponentInChildren<Camera>().enabled = false;
         activeGameObject.transform.gameObject.GetComponent<FurnitureScript>().IsPlayer = false;
 
