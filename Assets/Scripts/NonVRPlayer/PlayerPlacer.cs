@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class PlayerPlacer : MonoBehaviour
 {
+    bool inFurniture = false;
+    public bool InFurniture { get { return inFurniture; } }
+
+
     [SerializeField]
     GameObject activeGameObject;
 
     [SerializeField]
     Transform spawnLocation;
     [SerializeField]
-    List<GameObject> spawnableObjects;
+    public List<GameObject> spawnableObjects;
     int spawnableObjectAmount = 0;
     int activeSpawnableObjectsNum = 0;
     GameObject activeSpawnableObject;
@@ -24,6 +28,15 @@ public class PlayerPlacer : MonoBehaviour
 
     [SerializeField]
     int jumpsLeft;
+
+    public int JumpsLeft
+    {
+        get
+        {
+            return jumpsLeft;
+        }
+    }
+
 	// Use this for initialization
 	void Start ()
     {
@@ -64,6 +77,21 @@ public class PlayerPlacer : MonoBehaviour
         //}
 	}
 
+    public void ForcePlace()
+    {
+        Debug.Log("Force Place");
+        
+        
+
+        spawnedObject[0].transform.GetComponentInChildren<Camera>().enabled = true;
+        spawnedObject[0].transform.gameObject.GetComponent<FurnitureScript>().IsPlayer = true;
+        activeGameObject = spawnedObject[0];
+
+        this.gameObject.SetActive(false);
+        this.transform.GetComponentInChildren<Camera>().enabled = false;
+
+    }
+
     void Jump()
     {
         Debug.Log("I Jumped");
@@ -94,7 +122,7 @@ public class PlayerPlacer : MonoBehaviour
 
     }
 
-    void PlaceFurniture() //Done
+    public void PlaceFurniture() //Done
     {
         if (spawnableObjects.Count != 0)
         {
@@ -149,6 +177,7 @@ public class PlayerPlacer : MonoBehaviour
                     hit.transform.gameObject.GetComponent<FurnitureScript>().IsPlayer = true;
 
                     activeGameObject = hit.transform.gameObject;
+                    inFurniture = true;
                 }
             }
         }
