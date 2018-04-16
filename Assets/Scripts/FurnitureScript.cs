@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class FurnitureScript : MonoBehaviour
 {
+    [SerializeField]
+    ParticleSystem DeleteObject;
+
     public enum FurnitureType {Bed, Carbineet, FineChair, NoticeBoard, Plunderchest };
 
     [SerializeField]
@@ -27,6 +30,9 @@ public class FurnitureScript : MonoBehaviour
     [SerializeField]
     AudioClip playerAudio;
 
+    float nonPlayerLevel = .5f;
+    float playerLevel = 1;
+
     bool isPlayer;
     public bool IsPlayer
     {
@@ -46,6 +52,8 @@ public class FurnitureScript : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
 
         audioSource.Play();
+
+        //audioSource.loop = true;
 	}
 	
 	// Update is called once per frame
@@ -65,14 +73,22 @@ public class FurnitureScript : MonoBehaviour
     {
         if(IsPlayer)
         {
+            audioSource.volume = playerLevel;
             audioSource.clip = playerAudio;
             audioSource.Play();
         }
 
         else
         {
+            audioSource.volume = nonPlayerLevel;
             audioSource.clip = baseAudio;
             audioSource.Play();
         }
+    }
+
+    private void OnDestroy()
+    {
+        Instantiate(DeleteObject, this.transform);
+        
     }
 }

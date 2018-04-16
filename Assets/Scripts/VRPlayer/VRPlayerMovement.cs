@@ -22,9 +22,23 @@ public class VRPlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         MovementConroller();
+        VerticleMovement();
+    }
+
+    void VerticleMovement()
+    {
+        if(Input.GetButton("UpController"))
+        {
+            rb.velocity += new Vector3(0, 1);
+        }
+
+        if(Input.GetButton("DownController"))
+        {
+            rb.velocity -= new Vector3(0, 1);
+        }
     }
 
     void MovementConroller()

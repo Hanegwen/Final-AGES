@@ -86,6 +86,11 @@ public class RoundManager : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
+        if(pp == null)
+        {
+            pp = FindObjectOfType<PlayerPlacer>();
+            fs = FindObjectOfType<FurnitureSelector>();
+        }
         if(roundTimer <= 0)
         {
             NextRound();

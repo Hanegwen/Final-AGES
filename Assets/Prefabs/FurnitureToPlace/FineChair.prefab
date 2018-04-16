@@ -272,6 +272,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05c03add26c02c540a11d385ea4c372c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DeleteObject: {fileID: 198867760610089360, guid: bcc64d265f334bd479d1e1630e82b0ea,
+    type: 2}
   myType: 2
   baseAudio: {fileID: 8300000, guid: 36c1daed656d05544afca03278317653, type: 3}
   playerAudio: {fileID: 8300000, guid: ba0562ac58ba7ea45bb33340c2457a75, type: 3}

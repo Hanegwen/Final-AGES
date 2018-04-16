@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerPlacer : MonoBehaviour
 {
+    [SerializeField]
+    ParticleSystem objectPlacedEffect;
+
     bool inFurniture = false;
     public bool InFurniture { get { return inFurniture; } }
 
@@ -143,6 +146,7 @@ public class PlayerPlacer : MonoBehaviour
         if (spawnableObjects.Count != 0)
         {
             activeSpawnableObject = Instantiate(spawnableObjects[0], spawnLocation);
+            Instantiate(objectPlacedEffect, spawnLocation);
             activeSpawnableObjectsNum = 0;
         }
         else
