@@ -54,6 +54,10 @@ public class PlayerPlacer : MonoBehaviour
 
         if(Input.GetButtonDown("JumpKeyboard") && jumpsLeft > 0 && spawnableObjects.Count == 0)
         {
+            if (jumpsLeft == 1)
+            {
+                Debug.Log("Space");
+            }
             Jump();
         }
 
@@ -75,7 +79,7 @@ public class PlayerPlacer : MonoBehaviour
         activeGameObject.transform.gameObject.GetComponent<FurnitureScript>().IsPlayer = false;
 
 
-        if(spawnedObject[0] != activeGameObject)
+        if(spawnedObject[0].GetComponent<FurnitureScript>().MyType != activeGameObject.GetComponent<FurnitureScript>().MyType)
         {
             Debug.Log("In Any");
             spawnedObject[0].transform.GetComponentInChildren<Camera>().enabled = true;

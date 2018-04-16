@@ -5,6 +5,20 @@ using UnityEngine;
 
 public class FurnitureScript : MonoBehaviour
 {
+    public enum FurnitureType {Bed, Carbineet, FineChair, NoticeBoard, Plunderchest };
+
+    [SerializeField]
+    FurnitureType myType;
+
+    public FurnitureType MyType
+    {
+        get
+        {
+            return myType;
+        }
+    }
+
+
     AudioSource audioSource;
 
     [SerializeField]

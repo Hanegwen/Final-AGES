@@ -12,7 +12,7 @@ public class RoundManager : MonoBehaviour
         {
             return currentRoundState;
         }
-    }hgghj
+    }
 
     int maxRounds;
     int currentRound;

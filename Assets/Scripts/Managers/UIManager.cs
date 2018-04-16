@@ -16,11 +16,7 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     Text Player2Points;
 
-    [SerializeField]
-    Text VRPowersLeft;
-
-    [SerializeField]
-    Text NonVRPowersLeft;
+    
 
     RoundManager rm;
 
@@ -28,7 +24,7 @@ public class UIManager : MonoBehaviour
 	void Start ()
     {
         rm = FindObjectOfType<RoundManager>();
-		working on UI Manager
+		//working on UI Manager
 	}
 	
 	// Update is called once per frame
