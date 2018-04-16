@@ -1,9 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RoundManager : MonoBehaviour
 {
+    static RoundManager roundManagerInstance;
+    PlayerPlacer pp;
+    FurnitureSelector fs;
     public enum RoundState {VRPlayer, NonVRPlayer };
     RoundState currentRoundState;
     public RoundState CurrentRoundState
@@ -55,33 +59,76 @@ public class RoundManager : MonoBehaviour
     }
 
 	// Use this for initialization
-	void Start ()
+	void Awake ()
     {
-		
+        DontDestroyOnLoad(this);
+        if(roundManagerInstance == null)
+        {
+            roundManagerInstance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+        pp = FindObjectOfType<PlayerPlacer>();
+        fs = FindObjectOfType<FurnitureSelector>();
 	}
-	
-	// Update is called once per frame
-	void Update ()
+
+    private void Start()
+    {
+
+        
+        
+        currentRoundState = RoundState.NonVRPlayer;
+        StartingRound();
+    }
+
+    // Update is called once per frame
+    void Update ()
     {
         if(roundTimer <= 0)
         {
             NextRound();
         }
+        if(pp.InFurniture && pp.gameObject.GetComponent<Camera>().isActiveAndEnabled)
+        {
+            NextRound();
+        }
 	}
+
+    void StartingRound()
+    {
+        currentRound++;
+        roundTimer = defaultRoundTimer;
+        StartCoroutine(Timer());
+    }
 
     void NextRound()
     {
-        
+        StopAllCoroutines();
         roundTimer = defaultRoundTimer;
         StartCoroutine(Timer());
 
         if (currentRoundState == RoundState.NonVRPlayer)
         {
+            Debug.Log("1");
+            do
+            {
+                pp.PlaceFurniture();
+            }
+            while (pp.spawnableObjects.Count != 0);
+            pp.ForcePlace();
             currentRound++;
             currentRoundState = RoundState.VRPlayer;
+            fs.gameObject.SetActive(true);
+            
         }
         else
         {
+            Debug.Log("2");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            fs.gameObject.SetActive(false);
+            pp.gameObject.SetActive(true);
             currentRoundState = RoundState.NonVRPlayer;
         }
     }

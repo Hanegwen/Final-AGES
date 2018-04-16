@@ -7,6 +7,15 @@ public class FurnitureDeletor : MonoBehaviour
     [SerializeField]
     bool usedDelete = false;
 
+    public bool UsedDelete
+    {
+        get
+        {
+            return usedDelete;
+        }
+    }
+
+
 
 	// Use this for initialization
 	void Start ()
