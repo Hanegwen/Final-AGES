@@ -77,8 +77,6 @@ public class RoundManager : MonoBehaviour
     private void Start()
     {
 
-        
-        
         currentRoundState = RoundState.NonVRPlayer;
         StartingRound();
     }
@@ -86,9 +84,15 @@ public class RoundManager : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
+        ControlDisplays(); //Second Monitor for Testing
+
         if(pp == null)
         {
             pp = FindObjectOfType<PlayerPlacer>();
+            
+        }
+        if (fs == null)
+        {
             fs = FindObjectOfType<FurnitureSelector>();
         }
         if(roundTimer <= 0)
@@ -98,6 +102,11 @@ public class RoundManager : MonoBehaviour
         if(pp.InFurniture && pp.gameObject.GetComponent<Camera>().isActiveAndEnabled)
         {
             NextRound();
+        }
+        if (fs != null)
+        {
+            ForceNextRound();
+            MinusTimer();
         }
 	}
 
@@ -131,10 +140,29 @@ public class RoundManager : MonoBehaviour
         else
         {
             Debug.Log("2");
+            player1Score++; //Player got it
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             fs.gameObject.SetActive(false);
             pp.gameObject.SetActive(true);
             currentRoundState = RoundState.NonVRPlayer;
+        }
+    }
+
+    void MinusTimer()
+    {
+        if(fs.MinusTimer)
+        {
+            roundTimer -= 5;
+            fs.MinusTimer = false;
+        }
+    }
+
+    void ForceNextRound()
+    {
+        if(fs.CorrectGuess)
+        {
+            player2Score++;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 
@@ -146,5 +174,20 @@ public class RoundManager : MonoBehaviour
             roundTimer--;
         }
         while (roundTimer >= 1);
+    }
+
+    void ControlDisplays()
+    {
+        if (Display.displays.Length > 1)
+        {
+            Display.displays[1].Activate();
+
+            var camera1 = pp.GetComponent<Camera>();
+            var camera2 = fs.GetComponent<Camera>();
+
+
+            camera1.targetDisplay = 0;
+            camera2.targetDisplay = 1;
+        }
     }
 }

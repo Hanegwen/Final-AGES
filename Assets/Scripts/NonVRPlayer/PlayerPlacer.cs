@@ -18,7 +18,7 @@ public class PlayerPlacer : MonoBehaviour
     Transform spawnLocation;
     [SerializeField]
     public List<GameObject> spawnableObjects;
-    int spawnableObjectAmount = 0;
+    //int spawnableObjectAmount = 0;
     int activeSpawnableObjectsNum = 0;
     GameObject activeSpawnableObject;
 
@@ -50,7 +50,7 @@ public class PlayerPlacer : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        spawnableObjectAmount = spawnableObjects.Count;
+        //spawnableObjectAmount = spawnableObjects.Count;
 
 
         if(Input.GetButtonDown("SelectFurnitureKeyboard")) //Exists

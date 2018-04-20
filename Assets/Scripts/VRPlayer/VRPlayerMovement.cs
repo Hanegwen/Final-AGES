@@ -52,14 +52,23 @@ public class VRPlayerMovement : MonoBehaviour
 
         rb.AddRelativeForce(move * speed);
 
-        if (Input.GetKeyDown(KeyCode.Space)) //For Debugging
+        if(Input.GetButtonDown("VRSTOP"))
         {
+            Debug.Log("Stop is Hit");
             rb.velocity = Vector3.zero;
         }
 
-        horizontalRoation += -1 * rotationSpeed * Input.GetAxis("HorizontalControllerRight");
-        verticalRotation -= -1 * rotationSpeed * Input.GetAxis("VerticalControllerRight");
+        //if (Input.GetKeyDown(KeyCode.KeypadEnter))
+        //{
+        //    this.transform.Rotate(Vector3.zero);
+        //}
 
-        transform.eulerAngles = new Vector3(horizontalRoation, verticalRotation, 0.0f);
+        //horizontalRoation += .05f * rotationSpeed * Input.GetAxis("HorizontalControllerRight");
+        //verticalRotation -= .05f * rotationSpeed * Input.GetAxis("VerticalControllerRight");
+        
+        //transform.eulerAngles += new Vector3(horizontalRoation, verticalRotation, 0.0f);
+        
+
+        
     }
 }

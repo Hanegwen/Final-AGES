@@ -22,6 +22,9 @@ GameObject:
   - component: {fileID: 54074001151432978}
   - component: {fileID: 114400450529685306}
   - component: {fileID: 136162328840696454}
+  - component: {fileID: 20721058502928470}
+  - component: {fileID: 114600276693024112}
+  - component: {fileID: 114369011176735540}
   m_Layer: 0
   m_Name: PlayerVRCamera
   m_TagString: Untagged
@@ -36,12 +39,48 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1511843782078912}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0017523766, y: 1.4657578, z: -0.29559648}
+  m_LocalPosition: {x: 2.6, y: 2.25, z: -0.29559648}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &20721058502928470
+Camera:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1511843782078912}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
 --- !u!54 &54074001151432978
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -52,11 +91,24 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Constraints: 64
+  m_CollisionDetection: 1
+--- !u!114 &114369011176735540
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1511843782078912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c44288dc2a9eca44ac3d00265cac5be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
+  rotationSpeed: 1
 --- !u!114 &114400450529685306
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -68,6 +120,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f1e6beccee2fac4281d048a673111d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114600276693024112
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1511843782078912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d32c8a9ecce993429059b0cefaaa90f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  usedDelete: 0
 --- !u!136 &136162328840696454
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -78,6 +142,6 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 1
+  m_Height: 2.097581
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: -0.54879045, z: 0}
