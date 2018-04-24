@@ -1,9 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FurnitureSelector : MonoBehaviour
 {
+    [SerializeField]
+    Text activeFurniture;
+
     bool correctGuess;
     public bool CorrectGuess
     {
@@ -28,10 +32,11 @@ public class FurnitureSelector : MonoBehaviour
     }
 
 
-
-	// Use this for initialization
-	void Start ()
+    RaycastHit hit;
+    // Use this for initialization
+    void Start ()
     {
+        activeFurniture.text = "";
         this.gameObject.SetActive(false);
 	}
 	
@@ -39,17 +44,19 @@ public class FurnitureSelector : MonoBehaviour
 	void Update ()
     {
         FindPlayer();
+        
     }
 
     void FindPlayer()
     {
         Vector3 fwd = transform.TransformDirection(Vector3.forward);
-        RaycastHit hit;
+        
         if (Physics.Raycast(transform.position, fwd, out hit, 5))
         {
             Debug.Log("VR: Hitting Something");
             if (hit.transform.gameObject.layer == LayerMask.NameToLayer("furnitureLayer"))
             {
+                activeFurniture.text = hit.transform.gameObject.name;
                 Debug.Log("VR: Hitting Corrcet Layer");
                 if(Input.GetButtonDown("SelectFurnitureController")) //Input for VR Player and Exists
                 {

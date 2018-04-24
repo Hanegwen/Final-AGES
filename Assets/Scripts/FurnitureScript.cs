@@ -30,7 +30,7 @@ public class FurnitureScript : MonoBehaviour
     [SerializeField]
     AudioClip playerAudio;
 
-    float nonPlayerLevel = .5f;
+    float nonPlayerLevel = .2f;
     float playerLevel = 1;
 
     bool isPlayer;
@@ -46,6 +46,9 @@ public class FurnitureScript : MonoBehaviour
             isPlayer = value;
         }
     }
+
+    float audioTimer = 5;
+    float baseAudioTimer = 5;
 	// Use this for initialization
 	void Start ()
     {
@@ -63,9 +66,18 @@ public class FurnitureScript : MonoBehaviour
         {
             throw new NotImplementedException("Never did audio");
         }
-		if(!audioSource.isPlaying)
+		if(!audioSource.isPlaying && audioTimer > 0)
         {
             PlayMusic();
+        }
+
+        if(audioTimer > 0)
+        {
+            audioTimer -= Time.deltaTime;
+        }
+        else
+        {
+
         }
 	}
 
@@ -90,5 +102,12 @@ public class FurnitureScript : MonoBehaviour
     {
         Instantiate(DeleteObject, this.transform);
         
+    }
+
+    IEnumerator PauseMusic()
+    {
+        yield return new WaitForSeconds(2);
+        audioTimer = baseAudioTimer;
+        Working on Audio Timer
     }
 }
