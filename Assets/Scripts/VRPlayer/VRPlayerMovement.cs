@@ -58,17 +58,15 @@ public class VRPlayerMovement : MonoBehaviour
             rb.velocity = Vector3.zero;
         }
 
-        //if (Input.GetKeyDown(KeyCode.KeypadEnter))
-        //{
-        //    this.transform.Rotate(Vector3.zero);
-        //}
+        if(Input.GetButtonDown("VRLeftTurn"))
+        {
+            this.gameObject.transform.Rotate(new Vector3(0,30,0));
+        }
 
-        //horizontalRoation += .05f * rotationSpeed * Input.GetAxis("HorizontalControllerRight");
-        //verticalRotation -= .05f * rotationSpeed * Input.GetAxis("VerticalControllerRight");
-        
-        //transform.eulerAngles += new Vector3(horizontalRoation, verticalRotation, 0.0f);
-        
-
+        if(Input.GetButtonDown("VRRightTurn"))
+        {
+            this.gameObject.transform.Rotate(new Vector3(0,-30,0));
+        }
         
     }
 }

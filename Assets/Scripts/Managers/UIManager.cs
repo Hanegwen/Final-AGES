@@ -26,6 +26,12 @@ public class UIManager : MonoBehaviour
     FurnitureDeletor fd; //For VR Power
     PlayerPlacer pp; //For Non VR Power
 
+    [SerializeField]
+    Canvas EndGameCanvas;
+
+    [SerializeField]
+    Text PlayerWinText;
+
 	// Use this for initialization
 	void Awake ()
     {
@@ -72,6 +78,27 @@ public class UIManager : MonoBehaviour
         else
         {
             NonVRPowersLeft.text = "Non VR Jumps Left: 0";
+        }
+
+        if(rm.Player1Score >= 5 || rm.Player2Score >= 5)
+        {
+            EndGameCall();
+        }
+    }
+
+    void EndGameCall()
+    {
+        rm.EndGame();
+
+        EndGameCanvas.enabled = true;
+
+        if (rm.Player1Score > rm.Player2Score)
+        {
+            PlayerWinText.text = "Player 1 Won";
+        }
+        else
+        {
+            PlayerWinText.text = "Player 2 Won";
         }
     }
 }

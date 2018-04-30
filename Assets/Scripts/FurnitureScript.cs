@@ -77,7 +77,7 @@ public class FurnitureScript : MonoBehaviour
         }
         else
         {
-
+            StartCoroutine(PauseMusic());
         }
 	}
 
@@ -108,6 +108,6 @@ public class FurnitureScript : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         audioTimer = baseAudioTimer;
-        Working on Audio Timer
+        //Working on Audio Timer
     }
 }

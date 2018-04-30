@@ -79,4 +79,14 @@ public class FurnitureSelector : MonoBehaviour
             }
         }
     }
+
+    public void OtherTurn()
+    {
+        activeFurniture.text = "Other Persons Turn";
+    }
+
+    public void MyTurn()
+    {
+        activeFurniture.text = "My Turn";
+    }
 }

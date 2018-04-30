@@ -1,9 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerPlacer : MonoBehaviour
 {
+    [SerializeField]
+    Text activeFurniture;
+
     [SerializeField]
     ParticleSystem objectPlacedEffect;
 
@@ -114,14 +118,21 @@ public class PlayerPlacer : MonoBehaviour
         if(spawnedObject[0].GetComponent<FurnitureScript>().MyType != activeGameObject.GetComponent<FurnitureScript>().MyType)
         {
             Debug.Log("In Any");
-            spawnedObject[0].transform.GetComponentInChildren<Camera>().enabled = true;
+            if (Display.displays.Length > 1)
+            {
+                spawnedObject[0].transform.GetComponentInChildren<Camera>().enabled = true;
+            }
             spawnedObject[0].transform.gameObject.GetComponent<FurnitureScript>().IsPlayer = true;
             activeGameObject = spawnedObject[0];
         }
         else
         {
             Debug.Log("In Not Me");
-            spawnedObject[2].transform.GetComponentInChildren<Camera>().enabled = true;
+            if (Display.displays.Length > 1)
+            {
+                spawnedObject[2].transform.GetComponentInChildren<Camera>().enabled = true;
+            }
+            
             spawnedObject[2].transform.gameObject.GetComponent<FurnitureScript>().IsPlayer = true;
             activeGameObject = spawnedObject[2];
         }
@@ -177,6 +188,7 @@ public class PlayerPlacer : MonoBehaviour
             Debug.Log("Hitting Something");
             if (hit.transform.gameObject.layer == LayerMask.NameToLayer("FurnitureLayer"))
             {
+                activeFurniture.text = hit.transform.gameObject.name;
                 Debug.Log("Click The Button");
                 if (Input.GetButtonDown("SelectFurnitureKeyboard")) //Exists
                 {
@@ -192,5 +204,15 @@ public class PlayerPlacer : MonoBehaviour
         }
 
         //Lets the player decide which furniture they are
+    }
+
+    public void OtherTurn()
+    {
+        activeFurniture.text = "Other Persons Turn";
+    }
+
+    public void MyTurn()
+    {
+        activeFurniture.text = "My Turn";
     }
 }

@@ -84,6 +84,7 @@ public class RoundManager : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
+        //EndGame();
         ControlDisplays(); //Second Monitor for Testing
 
         if(pp == null)
@@ -134,6 +135,8 @@ public class RoundManager : MonoBehaviour
             pp.ForcePlace();
             currentRound++;
             currentRoundState = RoundState.VRPlayer;
+
+            pp.MyTurn();
             fs.gameObject.SetActive(true);
             
         }
@@ -142,8 +145,12 @@ public class RoundManager : MonoBehaviour
             Debug.Log("2");
             player1Score++; //Player got it
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            fs.OtherTurn();
             fs.gameObject.SetActive(false);
+
+            pp.MyTurn();
             pp.gameObject.SetActive(true);
+            
             currentRoundState = RoundState.NonVRPlayer;
         }
     }
@@ -190,4 +197,11 @@ public class RoundManager : MonoBehaviour
             camera2.targetDisplay = 1;
         }
     }
+
+    public void EndGame()
+    {
+            StopAllCoroutines();
+
+    }
+    
 }
