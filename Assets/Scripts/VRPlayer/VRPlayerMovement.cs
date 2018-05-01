@@ -26,6 +26,11 @@ public class VRPlayerMovement : MonoBehaviour
     {
         MovementConroller();
         VerticleMovement();
+
+        if(this.gameObject.transform.rotation.x != 0 || this.gameObject.transform.rotation.z != 0)
+        {
+            this.gameObject.transform.Rotate(new Vector3(0, this.gameObject.transform.rotation.y, 0));
+        }
     }
 
     void VerticleMovement()

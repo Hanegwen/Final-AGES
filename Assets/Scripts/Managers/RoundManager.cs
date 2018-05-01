@@ -8,7 +8,7 @@ public class RoundManager : MonoBehaviour
     static RoundManager roundManagerInstance;
     PlayerPlacer pp;
     FurnitureSelector fs;
-    public enum RoundState {VRPlayer, NonVRPlayer };
+    public enum RoundState {SeekingPlayer, HidingPlayer };
     RoundState currentRoundState;
     public RoundState CurrentRoundState
     {
@@ -19,7 +19,7 @@ public class RoundManager : MonoBehaviour
     }
 
     int maxRounds;
-    int currentRound;
+    int currentRound = 0;
     public int CurrentRound
     {
         get
@@ -77,7 +77,7 @@ public class RoundManager : MonoBehaviour
     private void Start()
     {
 
-        currentRoundState = RoundState.NonVRPlayer;
+        currentRoundState = RoundState.HidingPlayer;
         StartingRound();
     }
 
@@ -124,7 +124,7 @@ public class RoundManager : MonoBehaviour
         roundTimer = defaultRoundTimer;
         StartCoroutine(Timer());
 
-        if (currentRoundState == RoundState.NonVRPlayer)
+        if (currentRoundState == RoundState.HidingPlayer)
         {
             Debug.Log("1");
             do
@@ -134,7 +134,7 @@ public class RoundManager : MonoBehaviour
             while (pp.spawnableObjects.Count != 0);
             pp.ForcePlace();
             currentRound++;
-            currentRoundState = RoundState.VRPlayer;
+            currentRoundState = RoundState.SeekingPlayer;
 
             pp.MyTurn();
             fs.gameObject.SetActive(true);
@@ -145,13 +145,7 @@ public class RoundManager : MonoBehaviour
             Debug.Log("2");
             player1Score++; //Player got it
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            fs.OtherTurn();
-            fs.gameObject.SetActive(false);
-
-            pp.MyTurn();
-            pp.gameObject.SetActive(true);
             
-            currentRoundState = RoundState.NonVRPlayer;
         }
     }
 

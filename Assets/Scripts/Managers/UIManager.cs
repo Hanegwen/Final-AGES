@@ -60,24 +60,24 @@ public class UIManager : MonoBehaviour
         Player2Points.text = "Player 2: " + rm.Player2Score.ToString();
         if(fd.UsedDelete)
         {
-            VRPowersLeft.text = "VR Deletes Left: 0";
+            VRPowersLeft.text = "Seeker Deletes Left: 0";
         }
         else
         {
-            VRPowersLeft.text = "VR Deletes Left: 1";
+            VRPowersLeft.text = "Seeker Deletes Left: 1";
         }
 
         if (pp.JumpsLeft == 2)
         {
-            NonVRPowersLeft.text = "Non VR Jumps Left: 2";
+            NonVRPowersLeft.text = "Hyder VR Jumps Left: 2";
         }
         else if (pp.JumpsLeft == 1)
         {
-            NonVRPowersLeft.text = "Non VR Jumps Left: 1";
+            NonVRPowersLeft.text = "Hyder VR Jumps Left: 1";
         }
         else
         {
-            NonVRPowersLeft.text = "Non VR Jumps Left: 0";
+            NonVRPowersLeft.text = "Hyder VR Jumps Left: 0";
         }
 
         if(rm.Player1Score >= 5 || rm.Player2Score >= 5)

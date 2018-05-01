@@ -54,9 +54,7 @@ public class PlayerPlacer : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        //spawnableObjectAmount = spawnableObjects.Count;
-
-
+        
         if(Input.GetButtonDown("SelectFurnitureKeyboard")) //Exists
         {
             if (activeSpawnableObject != null)
@@ -67,8 +65,7 @@ public class PlayerPlacer : MonoBehaviour
 
         if(spawnableObjects.Count == 0)
         {
-            //Works checked with Log
-            //Debug.Log(spawnableObjects.Count);
+            
             ChooseFurniture();
         }
 
@@ -80,12 +77,6 @@ public class PlayerPlacer : MonoBehaviour
             }
             Jump();
         }
-
-
-        //if(Input.GetButtonDown("NextFurnitureKeyboard")) //Exists
-        //{
-        //    NextFurniture();
-        //}
 	}
 
     public void ForcePlace()
@@ -166,19 +157,6 @@ public class PlayerPlacer : MonoBehaviour
         }
     }
 
-    //void NextFurniture()
-    //{
-    //    Destroy(activeSpawnableObject);
-    //    activeSpawnableObjectsNum++;
-    //    if(activeSpawnableObjectsNum + 1 > spawnableObjectAmount)
-    //    {
-    //        activeSpawnableObjectsNum = 0;
-    //    }
-    //    activeSpawnableObject = Instantiate(spawnableObjects[activeSpawnableObjectsNum], spawnLocation);
-
-    //    //Cycles through the furniture options
-    //}
-
     void ChooseFurniture()
     {
         Vector3 fwd = transform.TransformDirection(Vector3.forward);
@@ -203,7 +181,6 @@ public class PlayerPlacer : MonoBehaviour
             }
         }
 
-        //Lets the player decide which furniture they are
     }
 
     public void OtherTurn()

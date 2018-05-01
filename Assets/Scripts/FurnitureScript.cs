@@ -56,7 +56,7 @@ public class FurnitureScript : MonoBehaviour
 
         audioSource.Play();
 
-        //audioSource.loop = true;
+        
 	}
 	
 	// Update is called once per frame
@@ -101,7 +101,6 @@ public class FurnitureScript : MonoBehaviour
     private void OnDestroy()
     {
         Instantiate(DeleteObject, this.transform);
-        
     }
 
     IEnumerator PauseMusic()
