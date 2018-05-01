@@ -32,7 +32,7 @@ public class FurnitureSelector : MonoBehaviour
     }
 
 
-    RaycastHit hit;
+    
     // Use this for initialization
     void Start ()
     {
@@ -49,13 +49,20 @@ public class FurnitureSelector : MonoBehaviour
 
     void FindPlayer()
     {
+        if(Input.GetButtonDown("SelectFurnitureController"))
+        {
+            Debug.Log("CorrectButton");
+        }
+
         Vector3 fwd = transform.TransformDirection(Vector3.forward);
-        
+        RaycastHit hit;
         if (Physics.Raycast(transform.position, fwd, out hit, 5))
         {
-            Debug.Log("VR: Hitting Something");
-            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("furnitureLayer"))
+            //Debug.Log("VR: Hitting Something");
+            Debug.Log(hit.transform.gameObject.layer);
+            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("FurnitureLayer"))
             {
+
                 activeFurniture.text = hit.transform.gameObject.name;
                 Debug.Log("VR: Hitting Corrcet Layer");
                 if(Input.GetButtonDown("SelectFurnitureController")) //Input for VR Player and Exists
@@ -76,6 +83,10 @@ public class FurnitureSelector : MonoBehaviour
                     }
                 }
 
+            }
+            else
+            {
+                //Debug.Log("Wrong Layer");
             }
         }
     }

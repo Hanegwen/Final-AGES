@@ -105,8 +105,11 @@ public class FurnitureScript : MonoBehaviour
 
     IEnumerator PauseMusic()
     {
+        audioSource.Stop();
         yield return new WaitForSeconds(2);
+        
         audioTimer = baseAudioTimer;
+        audioSource.Play();
         //Working on Audio Timer
     }
 }

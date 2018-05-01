@@ -16,14 +16,14 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     Text Player2Points;
 
-    [SerializeField]
-    Text VRPowersLeft;
+    //[SerializeField]
+    //Text VRPowersLeft;
 
     [SerializeField]
     Text NonVRPowersLeft;
 
     RoundManager rm;
-    FurnitureDeletor fd; //For VR Power
+    //FurnitureDeletor fd; //For VR Power
     PlayerPlacer pp; //For Non VR Power
 
     [SerializeField]
@@ -37,7 +37,7 @@ public class UIManager : MonoBehaviour
     {
         rm = FindObjectOfType<RoundManager>();
 
-        fd = FindObjectOfType<FurnitureDeletor>();
+        //fd = FindObjectOfType<FurnitureDeletor>();
         pp = FindObjectOfType<PlayerPlacer>();
 
 		//working on UI Manager
@@ -58,14 +58,7 @@ public class UIManager : MonoBehaviour
         RoundText.text = rm.CurrentRoundState.ToString();
         Player1Points.text = "Player 1: " + rm.Player1Score.ToString();
         Player2Points.text = "Player 2: " + rm.Player2Score.ToString();
-        if(fd.UsedDelete)
-        {
-            VRPowersLeft.text = "Seeker Deletes Left: 0";
-        }
-        else
-        {
-            VRPowersLeft.text = "Seeker Deletes Left: 1";
-        }
+        
 
         if (pp.JumpsLeft == 2)
         {
@@ -80,7 +73,7 @@ public class UIManager : MonoBehaviour
             NonVRPowersLeft.text = "Hyder VR Jumps Left: 0";
         }
 
-        if(rm.Player1Score >= 5 || rm.Player2Score >= 5)
+        if(rm.Player1Score >= 1 || rm.Player2Score >= 1)
         {
             EndGameCall();
         }

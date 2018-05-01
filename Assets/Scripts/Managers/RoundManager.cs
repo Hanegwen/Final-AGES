@@ -8,7 +8,7 @@ public class RoundManager : MonoBehaviour
     static RoundManager roundManagerInstance;
     PlayerPlacer pp;
     FurnitureSelector fs;
-    public enum RoundState {SeekingPlayer, HidingPlayer };
+    public enum RoundState { HidingPlayer, SeekingPlayer };
     RoundState currentRoundState;
     public RoundState CurrentRoundState
     {
@@ -62,6 +62,7 @@ public class RoundManager : MonoBehaviour
 	void Awake ()
     {
         DontDestroyOnLoad(this);
+        
         if(roundManagerInstance == null)
         {
             roundManagerInstance = this;
@@ -72,7 +73,10 @@ public class RoundManager : MonoBehaviour
         }
         pp = FindObjectOfType<PlayerPlacer>();
         fs = FindObjectOfType<FurnitureSelector>();
-	}
+
+        pp.InFurniture = false;
+        currentRoundState = RoundState.HidingPlayer;
+    }
 
     private void Start()
     {
@@ -96,23 +100,37 @@ public class RoundManager : MonoBehaviour
         {
             fs = FindObjectOfType<FurnitureSelector>();
         }
-        if(roundTimer <= 0)
-        {
-            NextRound();
-        }
+        
         if(pp.InFurniture && pp.gameObject.GetComponent<Camera>().isActiveAndEnabled)
         {
             NextRound();
         }
+        else if (roundTimer <= 0)
+        {
+            NextRound();
+        }
+
+
         if (fs != null)
         {
             ForceNextRound();
             MinusTimer();
         }
-	}
+
+        if(player1Score > 1)
+        {
+            player1Score = 1;
+        }
+
+        if(player2Score > 1)
+        {
+            player2Score = 1;
+        }
+    }
 
     void StartingRound()
     {
+        StopAllCoroutines();
         currentRound++;
         roundTimer = defaultRoundTimer;
         StartCoroutine(Timer());
@@ -144,6 +162,7 @@ public class RoundManager : MonoBehaviour
         {
             Debug.Log("2");
             player1Score++; //Player got it
+            Debug.Log("Reload Called");
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             
         }
@@ -163,7 +182,7 @@ public class RoundManager : MonoBehaviour
         if(fs.CorrectGuess)
         {
             player2Score++;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 
@@ -194,7 +213,7 @@ public class RoundManager : MonoBehaviour
 
     public void EndGame()
     {
-            StopAllCoroutines();
+            //StopAllCoroutines();
 
     }
     

@@ -12,7 +12,7 @@ public class PlayerPlacer : MonoBehaviour
     ParticleSystem objectPlacedEffect;
 
     bool inFurniture = false;
-    public bool InFurniture { get { return inFurniture; } }
+    public bool InFurniture { get { return inFurniture; } set { inFurniture = value; } }
 
 
     [SerializeField]

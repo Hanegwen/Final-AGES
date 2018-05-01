@@ -17,9 +17,16 @@ public class VRPlayerMovement : MonoBehaviour
     float verticalRotation;
 
     Rigidbody rb;
+
+    int rotation = 0;
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+    }
+
+    private void Update()
+    {
+        RoationController();
     }
 
     private void FixedUpdate()
@@ -27,10 +34,7 @@ public class VRPlayerMovement : MonoBehaviour
         MovementConroller();
         VerticleMovement();
 
-        if(this.gameObject.transform.rotation.x != 0 || this.gameObject.transform.rotation.z != 0)
-        {
-            this.gameObject.transform.Rotate(new Vector3(0, this.gameObject.transform.rotation.y, 0));
-        }
+        
     }
 
     void VerticleMovement()
@@ -62,16 +66,32 @@ public class VRPlayerMovement : MonoBehaviour
             Debug.Log("Stop is Hit");
             rb.velocity = Vector3.zero;
         }
+    }
 
-        if(Input.GetButtonDown("VRLeftTurn"))
-        {
-            this.gameObject.transform.Rotate(new Vector3(0,30,0));
-        }
-
-        if(Input.GetButtonDown("VRRightTurn"))
-        {
-            this.gameObject.transform.Rotate(new Vector3(0,-30,0));
-        }
+    void RoationController()
+    {
         
+        if (Input.GetButtonDown("VRLeftTurn"))
+        {
+            Debug.Log("Left");
+            this.gameObject.transform.Rotate(new Vector3(0, 30, 0));
+
+            rotation += 30;
+        }
+
+        if (Input.GetButtonDown("VRRightTurn"))
+        {
+            Debug.Log("Right");
+            this.gameObject.transform.Rotate(new Vector3(0, -30, 0));
+
+            rotation += -30;
+        }
+
+        if (this.gameObject.transform.rotation.x != 0 || this.gameObject.transform.rotation.z != 0)
+        {
+            Debug.Log("Turning");
+            this.gameObject.transform.rotation = Quaternion.Euler(0, rotation, 0);
+            
+        }
     }
 }
